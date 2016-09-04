@@ -1,5 +1,4 @@
 # Angular 2 Sample Project Source
-[![Build Status][travis-badge]][travis-badge-url]
 
 
 ## Prerequisites
@@ -15,7 +14,7 @@ Older versions produce errors.
 
 We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
 
-## Create a new project based on the QuickStart
+## Create a new project based on the angular2
 
 Clone this repo into new project folder (e.g., `my-proj`).
 ```bash
@@ -23,15 +22,8 @@ git clone  https://github.com/vipin030/angular2.git  my-proj
 cd my-proj
 ```
 
-We have no intention of updating the source on `angular/quickstart`.
-Discard everything "git-like" by deleting the `.git` folder.
-```bash
-rm -rf .git  # non-Windows
-rd .git /S/Q # windows
-```
-
 ### Create a new git repo
-You could [start writing code](#start-development) now and throw it all away when you're done.
+You could start writing code now and throw it all away when you're done.
 If you'd rather preserve your work under source control, consider taking the following steps.
 
 Initialize this project as a *local git repo* and make the first commit:
