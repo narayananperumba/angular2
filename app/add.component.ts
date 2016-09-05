@@ -6,7 +6,7 @@ import {AddService} from './add.service';
 @Component({
 	selector: 'add-form',
 	template:`<div class="row" id="main-container">
-	<div class="form-container col-lg-12 col-xs-12"><form [formGroup]="form" (ngSubmit)="addGame(form.value, form.valid)">
+	<div class="form-container col-lg-12 col-xs-12"><form [formGroup]="form" (ngSubmit)="addGame(form.value)">
 	<p>Add Game</p>
 	<p>Title:</p>
 	<p><input type="text" formControlName="title" id="title" class="form-control"></p>
@@ -58,7 +58,7 @@ export class AddComponent implements OnInit
 			note: ['']
 		});
 	}
-	addGame(model:Game, isValid:boolean)
+	addGame(model:Game)
 	{
 		//console.log("model");
 		this.addService.addGame(model);

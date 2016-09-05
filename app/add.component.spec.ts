@@ -102,25 +102,51 @@ describe('AddComponent with TCB', function () {
 
   });
   it('Submit button testing', () => {
-    //mockAddService.addGame=jasmine.createSpy('addGame').and.returnValue(true);
     let fixture = TestBed.createComponent(AddComponent);
-   
-    //spyOn(mockAddService, "addGame");
+    spyOn(fixture.componentInstance, 'addGame');
     fixture.detectChanges();
     let element = fixture.nativeElement;
     let form = fixture.debugElement.query(By.css('form')).nativeElement;
     let urlInput = fixture.debugElement.query(By.css('#url')).nativeElement;
-    urlInput.value = "sample title";
+    urlInput.value = "sample.jpg";
+    urlInput.dispatchEvent(new Event('input'));
     let titleInput = fixture.debugElement.query(By.css('#title')).nativeElement;
-    titleInput.value = "sample.jpg";
+    titleInput.value = "sample title";
+    titleInput.dispatchEvent(new Event('input'));
     let noteInput = fixture.debugElement.query(By.css('#note')).nativeElement;
     noteInput.value = "Sample note";
+    noteInput.dispatchEvent(new Event('input'));
     let saveButton = fixture.debugElement.query(By.css('#save')).nativeElement;
-    form.submit();
-    //fixture.debugElement.componentInstance.addGame();
-    //fixture.detectChanges();
-    //expect(mockAddService.addGame).toHaveBeenCalled();
-    //expect(mockAddService.addGame).toHaveBeenCalledWith({title:'sample title',url:'sample.jpg',note:'Sample note'});
+    fixture.detectChanges();
+    form.dispatchEvent(new Event('submit'));
+    expect(fixture.componentInstance.addGame).toHaveBeenCalledWith({
+            title:'sample title',url:'sample.jpg',note:'Sample note'
+    });
+
+  });
+  it('Submit button testing with service call', () => {
+    let fixture = TestBed.createComponent(AddComponent);
+    fixture.detectChanges();
+    let element = fixture.nativeElement;
+    let form = fixture.debugElement.query(By.css('form')).nativeElement;
+    let urlInput = fixture.debugElement.query(By.css('#url')).nativeElement;
+    urlInput.value = "sample.jpg";
+    urlInput.dispatchEvent(new Event('input'));
+    let titleInput = fixture.debugElement.query(By.css('#title')).nativeElement;
+    titleInput.value = "sample title";
+    titleInput.dispatchEvent(new Event('input'));
+    let noteInput = fixture.debugElement.query(By.css('#note')).nativeElement;
+    noteInput.value = "Sample note";
+    noteInput.dispatchEvent(new Event('input'));
+    let saveButton = fixture.debugElement.query(By.css('#save')).nativeElement;
+    fixture.detectChanges();
+    fixture.componentInstance.addGame = function(game:Game) {
+       mockAddService.addGame(game);
+    }
+    form.dispatchEvent(new Event('submit'));
+    expect(mockAddService.addGame).toHaveBeenCalledWith({
+            title:'sample title',url:'sample.jpg',note:'Sample note'
+    });
 
   });
 
