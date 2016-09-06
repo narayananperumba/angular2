@@ -9,7 +9,10 @@ module.exports = function(config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-htmlfile-reporter')
+      require('karma-htmlfile-reporter'),
+      require('karma-coverage'),
+      require('karma-sourcemap-loader'),
+      require('remap-istanbul')
     ],
 
     customLaunchers: {
@@ -66,8 +69,9 @@ module.exports = function(config) {
     },
 
     exclude: [],
-    preprocessors: {},
-    reporters: ['progress', 'html'],
+    preprocessors: {  'app/**/!(*.spec).js': ['coverage'],
+            'app/**/*.js': ['sourcemap'] },
+    reporters: ['progress', 'html', 'coverage'],
 
     // HtmlReporter configuration
     htmlReporter: {
@@ -78,6 +82,13 @@ module.exports = function(config) {
       pageTitle: 'Unit Tests',
       subPageTitle: __dirname
     },
+
+     coverageReporter: {
+            dir: 'report/',
+            reporters: [
+                {type: 'html', subdir: 'coverage'}
+            ]
+        },
 
     port: 9876,
     colors: true,
