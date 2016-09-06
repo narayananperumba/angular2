@@ -150,4 +150,43 @@ describe('AddComponent with TCB', function () {
 
   });
 
+  it('Submit button only get enabled if the form is valid', () => {
+    let fixture = TestBed.createComponent(AddComponent);
+    fixture.detectChanges();
+    let element = fixture.nativeElement;
+    let form = fixture.debugElement.query(By.css('form')).nativeElement;
+    let urlInput = fixture.debugElement.query(By.css('#url')).nativeElement;
+    urlInput.value = "sample.jpg";
+    urlInput.dispatchEvent(new Event('input'));
+    let titleInput = fixture.debugElement.query(By.css('#title')).nativeElement;
+    titleInput.value = "sample title";
+    titleInput.dispatchEvent(new Event('input'));
+    let noteInput = fixture.debugElement.query(By.css('#note')).nativeElement;
+    noteInput.value = "Sample note";
+    noteInput.dispatchEvent(new Event('input'));
+    let saveButton = fixture.debugElement.query(By.css('#save')).nativeElement;
+    fixture.detectChanges();
+    expect(saveButton.disabled).toBe(false);
+
+  });
+  it('Submit button is disabled if the form is not valid', () => {
+    let fixture = TestBed.createComponent(AddComponent);
+    fixture.detectChanges();
+    let element = fixture.nativeElement;
+    let form = fixture.debugElement.query(By.css('form')).nativeElement;
+    let urlInput = fixture.debugElement.query(By.css('#url')).nativeElement;
+    urlInput.value = "sample.jpg";
+    urlInput.dispatchEvent(new Event('input'));
+    let titleInput = fixture.debugElement.query(By.css('#title')).nativeElement;
+    titleInput.value = "samp";
+    titleInput.dispatchEvent(new Event('input'));
+    let noteInput = fixture.debugElement.query(By.css('#note')).nativeElement;
+    noteInput.value = "Sample note";
+    noteInput.dispatchEvent(new Event('input'));
+    let saveButton = fixture.debugElement.query(By.css('#save')).nativeElement;
+    fixture.detectChanges();
+    expect(saveButton.disabled).toBe(true);
+
+  });
+
 });
